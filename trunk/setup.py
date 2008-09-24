@@ -16,7 +16,7 @@ setup(name='mpylayer', version='0.1a1', author='Clovis Fabricio',
       mantainer='Clovis Fabricio', mantainer_email='nosklo at gmail dot com',
       description='Pythonic mplayer controller library',
       long_description=long_description,
-      download_url='http://code.google.com/p/mpylayer/downloads/list'
+      download_url='http://code.google.com/p/mpylayer/downloads/list',
       packages=['mpylayer'],
       package_data={'mpylayer': ['data/properties.pickle']},
       classifiers=[
