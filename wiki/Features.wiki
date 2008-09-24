@@ -1,7 +1,7 @@
 #labels Featured
 = Features =
 
-  * Dynamic commands loading. Check AvailableCommandsAndProperties.
+  * Dynamic commands loading.
   * Nice, descriptive error messages
   * Attribute boundary checks
   * Asynchronous operation by using select.
@@ -21,7 +21,12 @@ print mp.length # in seconds
 print mp.time_pos
 # result: 2.7766540000000002
 mp.percent_pos = 50 # move to 50% of the file.
+print mp.mute
+# result: False
+mp.mute = True # mutes output
 }}}
+
+Check AvailableCommandsAndProperties to see all methods/properties available.
 
 == Good error messages: ==
 {{{
