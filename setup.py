@@ -1,7 +1,22 @@
 from distutils.core import setup
 
-setup(name='mpylayer', version='0.1a', author='Clovis Fabricio',
-      author_email='nosklo at gmail dot com', url='http://none.for.now',
+
+long_description = """\
+mpylayer is a python package to easily control mplayer in python, using a pythonic OO syntax.
+
+A quick example:
+
+>>> mp = mpylayer.MPlayerControl()
+>>> mp.loadfile('/path/to/some_music.mp3')
+>>> mp.volume = 100
+"""
+
+setup(name='mpylayer', version='0.1a1', author='Clovis Fabricio',
+      author_email='nosklo at gmail dot com', url='http://code.google.com/p/mpylayer/',
+      mantainer='Clovis Fabricio', mantainer_email='nosklo at gmail dot com',
+      description='Pythonic mplayer controller library',
+      long_description=long_description,
+      download_url='http://code.google.com/p/mpylayer/downloads/list'
       packages=['mpylayer'],
       package_data={'mpylayer': ['data/properties.pickle']},
       classifiers=[
