@@ -35,3 +35,16 @@ Traceback (most recent call last):
 ...
 ValueError: volume value can't be more than 100.0
 }}}
+
+== Descriptive doc strings ==
+{{{
+# for properties:
+print type(mp).volume.__doc__
+# volume  (float)
+# [min: 0.0] [max: 100.0]
+# change volume
+
+# for methods:
+print mp.loadlist.__doc__
+# loadlist(String, [Integer])
+}}}
