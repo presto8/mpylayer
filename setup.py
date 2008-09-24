@@ -13,7 +13,7 @@ A quick example:
 
 setup(name='mpylayer', version='0.1a1', author='Clovis Fabricio',
       author_email='nosklo at gmail dot com', url='http://code.google.com/p/mpylayer/',
-      mantainer='Clovis Fabricio', mantainer_email='nosklo at gmail dot com',
+      maintainer='Clovis Fabricio', maintainer_email='nosklo at gmail dot com',
       description='Pythonic mplayer controller library',
       long_description=long_description,
       download_url='http://code.google.com/p/mpylayer/downloads/list',
