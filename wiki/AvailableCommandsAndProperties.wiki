@@ -1,4 +1,4 @@
-#labels Featured
+#labels Featured,Phase-Implementation
 = Varying commands and properties =
 
 The mplayer commands are generated on the fly using mplayer -input cmdlist, since the commands available can vary on each mplayer compilation.
@@ -613,6 +613,4 @@ class MPlayerControl(__builtin__.object)
  |      (readonly)
  |      "display" width
 }}}
-
-
 
