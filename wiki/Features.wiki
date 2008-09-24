@@ -35,12 +35,3 @@ Traceback (most recent call last):
 ...
 ValueError: volume value can't be more than 100.0
 }}}
-
-
->>> mp.time_pos
-21.945650000000001
->>> mp.pause()
->>> mp.pause()
->>> mp.quit()
-'\x1b[A\r\x1b[K\n\nExiting... (Quit)\n'
-}}}
