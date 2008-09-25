@@ -89,13 +89,6 @@ def _int_zero(value):
     except ValueError:
         return None
 
-_functions = {
-              'pos': 'float',
-              'time': 'int',
-              'string': 'str',
-              'flag': 'bool',
-              'str list': 'str'
-            }
 
 def _gen_property_table(_help_text):
     table = {}
@@ -115,9 +108,6 @@ def _gen_property_table(_help_text):
             'step': line[53:54] == 'X',
             'comment': line[58:].strip(),
             }
-            result['function'] = _functions.get(result['type'], result['type'])
-            result['function'] = eval(result['function'])
-
         else:
             name = result['name']
             result['comment'] += '\n' + line[58:].strip()
