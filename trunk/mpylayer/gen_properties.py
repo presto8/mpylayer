@@ -1,8 +1,16 @@
 """
-Script to generate pickle file from available properties.
+Script to generate module file that describes available properties.
 
 Since there is no way to get this table directly from mplayer, I am hard-coding
-it from the documentation.
+it from mplayer documentation.
+
+If it changes, you can just pass the name of a text file containing the 
+property table as an argument to this module:
+
+$ python -m mpylayer.gen_properties prop.txt
+
+and prop_table.py will be generated accordingly.
+
 """
 
 text = """\
@@ -92,7 +100,7 @@ def _int_zero(value):
 
 def _gen_property_table(_help_text):
     table = {}
-    for line in text.splitlines():
+    for line in _help_text:
         print line
         name = line[:19].strip()
         if '*' in name:
@@ -115,9 +123,13 @@ def _gen_property_table(_help_text):
     return table
 
 if __name__ == '__main__':
-    from cPickle import dump
-    import os
-
-    caminho, _ = os.path.split(os.path.realpath(__file__))
-    caminho = os.path.join(caminho, 'data', 'properties.pickle')
-    dump(_gen_property_table(text), file(caminho, 'w'))
+    from pprint import pformat
+    from sys import argv
+    if len(argv) > 1:
+        text = open(argv[1])
+    else:
+        text = text.splitlines()
+    
+    f = open('prop_table.py', 'w')
+    f.write('property_table = %s' % pformat(_gen_property_table(text), indent=4))
+    f.close()

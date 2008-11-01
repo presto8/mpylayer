@@ -11,14 +11,13 @@ A quick example:
 >>> mp.volume = 100
 """
 
-setup(name='mpylayer', version='0.1a1', author='Clovis Fabricio',
+setup(name='mpylayer', version='0.1a2', author='Clovis Fabricio',
       author_email='nosklo at gmail dot com', url='http://code.google.com/p/mpylayer/',
       maintainer='Clovis Fabricio', maintainer_email='nosklo at gmail dot com',
       description='Pythonic mplayer controller library',
       long_description=long_description,
       download_url='http://code.google.com/p/mpylayer/downloads/list',
       packages=['mpylayer'],
-      package_data={'mpylayer': ['data/properties.pickle']},
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Environment :: Plugins',
