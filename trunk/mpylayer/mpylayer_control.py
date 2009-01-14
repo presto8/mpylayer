@@ -11,10 +11,12 @@ from subprocess import Popen, PIPE
 from pprint import pformat
 from collections import deque
 from select import select
+from thread import start_new_thread
 
 from mpylayer.prop_table import property_table as _property_table
 
-__all__=['DEBUG', 'MPlayerControl']
+
+__all__=['DEBUG', 'MPlayerControl', 'ThreadedMPlayerControl']
 
 DEBUG=False
 
@@ -209,6 +211,25 @@ class MPlayerControl(object):
             return value.strip("'").strip()
         else:
             return ''
+
+class ThreadedMPlayerControl(MPlayerControl):
+    def _run_mplayer(self):
+        super(ThreadedMPlayerControl, self)._run_mplayer()
+        #starts the stdout read loop in another thread:
+        self._stdout_reader_thread = start_new_thread(self._stdout_reader, ())
+
+    def _stdout_reader(self):
+        while True:
+            b = self._mp.stdout.read(1)
+            self._buffer.append(b)
+            #TODO: maybe a hook here for mplayer events ?
+
+    def _read_all(self):
+        if self._buffer:
+            _debug(self._buffer)
+
+if os.name.startswith('win'):
+    MPlayerControl = ThreadedMPlayerControl # select does not work on windows.
 
 if __name__ == '__main__':
     mp = MPlayerControl()
