@@ -77,7 +77,7 @@ class MPlayerControl(object):
                              (item, max))
         self.set_property(item, str(value))
 
-    def __new__(cls, mplayer_path='mplayer', *args, **kwds):
+    def __new__(cls, mplayer_path='mplayer', extra_args=None, *args, **kwds):
         # create the list of commands from mplayer:
         cmdlist = Popen([mplayer_path, '-really-quiet', '-input', 'cmdlist'],
                         stdout=PIPE, stderr=IGNORE).communicate()[0].splitlines()
@@ -137,14 +137,17 @@ class MPlayerControl(object):
             prop = property(fget=pget, fset=pset, doc=doc)
             setattr(cls, prop_name, prop)
 
-        return super(MPlayerControl, cls).__new__(cls, mplayer_path, *args, **kwds)
+        return super(MPlayerControl, cls).__new__(cls, *args, **kwds)
 
-    def __init__(self, mplayer_path='mplayer'):
+    def __init__(self, mplayer_path='mplayer', extra_args=None):
         """
         Starts a new mplayer process.
         mplayer_path is the path to mplayer, defaults to 'mplayer'.
         """
         self._mp_path = mplayer_path
+        if extra_args is None:
+            extra_args = []
+        self._mp_extra_args = extra_args
         self._buffer = deque()
         self._run_mplayer()
 
@@ -169,8 +172,9 @@ class MPlayerControl(object):
             yield arg_mask % arg_func(rcvd_args.pop())        
 
     def _run_mplayer(self):
-        self._mp = Popen([self._mp_path, '-slave', '-quiet', '-idle'],
-                         stdin=PIPE, stdout=PIPE, stderr=IGNORE)
+        cmd = [self._mp_path, '-slave', '-quiet', '-idle']
+        cmd.extend(self._mp_extra_args)
+        self._mp = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=IGNORE)
 
     def _assert_mplayer(self):
         if self._mp.poll() is not None:
