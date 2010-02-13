@@ -6,6 +6,7 @@ import functools
 import time
 import os
 import types
+import sys
 
 from subprocess import Popen, PIPE
 from pprint import pformat
@@ -16,11 +17,19 @@ from thread import start_new_thread
 from mpylayer.prop_table import property_table as _property_table
 
 
-__all__=['DEBUG', 'MPlayerControl', 'ThreadedMPlayerControl']
+__all__=['MPlayerControl', 'SelectMPlayerControl', 'ThreadedMPlayerControl']
 
 DEBUG=False
 
 IGNORE=open(os.devnull, 'r+')
+
+def _str_arg(data):
+    if isinstance(data, unicode):
+        encoding_to_try = sys.getfilesystemencoding()
+        if not encoding_to_try:
+            encoding_to_try = 'utf-8'
+        data = data.encode(encoding_to_try, 'replace')
+    return data.replace('\\', '\\\\') # escape backslashes
 
 def _debug(msg, msg_type='debug'):
     if DEBUG or msg_type != 'debug':
@@ -154,7 +163,7 @@ class SelectMPlayerControl(object):
     _cmdtype = {
                 'Integer': (int, '%d'),
                 'Float': (float, '%f'),
-                'String': (str, '%r'),
+                'String': (_str_arg, "'%s'"),
                  }
 
     def _process_args(self, cmd, arglist, *args):
