@@ -26,7 +26,7 @@ def _debug(msg, msg_type='debug'):
     if DEBUG or msg_type != 'debug':
         print msg_type, pformat(msg)
 
-class MPlayerControl(object):
+class SelectMPlayerControl(object):
     def run_command(self, cmd, *args):
         """
         Runs a mplayer command.
@@ -137,7 +137,7 @@ class MPlayerControl(object):
             prop = property(fget=pget, fset=pset, doc=doc)
             setattr(cls, prop_name, prop)
 
-        return super(MPlayerControl, cls).__new__(cls, *args, **kwds)
+        return super(SelectMPlayerControl, cls).__new__(cls, *args, **kwds)
 
     def __init__(self, mplayer_path='mplayer', extra_args=None):
         """
@@ -216,7 +216,7 @@ class MPlayerControl(object):
         else:
             return ''
 
-class ThreadedMPlayerControl(MPlayerControl):
+class ThreadedMPlayerControl(SelectMPlayerControl):
     def _run_mplayer(self):
         super(ThreadedMPlayerControl, self)._run_mplayer()
         #starts the stdout read loop in another thread:
@@ -234,6 +234,9 @@ class ThreadedMPlayerControl(MPlayerControl):
 
 if os.name.startswith('nt'):
     MPlayerControl = ThreadedMPlayerControl # select does not work on windows.
+else:
+    MPlayerControl = SelectMPlayerControl
+
 
 if __name__ == '__main__':
     mp = MPlayerControl()
