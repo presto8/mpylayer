@@ -20,7 +20,7 @@ __all__=['DEBUG', 'MPlayerControl', 'ThreadedMPlayerControl']
 
 DEBUG=False
 
-IGNORE=open(os.devnull, 'r+w')
+IGNORE=open(os.devnull, 'r+')
 
 def _debug(msg, msg_type='debug'):
     if DEBUG or msg_type != 'debug':
