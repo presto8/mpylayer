@@ -62,7 +62,7 @@ class MPlayerControl(object):
         prop = _property_table[item]
         min = prop['min']
         max = prop['max']
-        proptype = prop['type']        
+        proptype = prop['type']
         if proptype == 'flag':
             value = int(bool(value))
         elif proptype in ('int', 'float', 'pos', 'time'):
@@ -93,7 +93,7 @@ class MPlayerControl(object):
             _runcmd.__doc__ = doc
             _runcmd.__name__ = _the_cmd
             return _runcmd
-       
+
         def _create_get(_the_prop):
             def _pget(self):
                 return self[_the_prop]
@@ -113,7 +113,7 @@ class MPlayerControl(object):
             else:
                 doc = '%s(%s)' % (cmd, ', '.join(arglist))
                 setattr(cls, cmd, _create_runcmd(cls.run_command, cmd, doc=doc))
-        
+
         # Defining properties
         for prop_name, propdict in _property_table.iteritems():
             pget = _create_get(prop_name)
@@ -169,7 +169,7 @@ class MPlayerControl(object):
                     raise TypeError('%s takes %r arguments - %s not given in %r' %
                                     (cmd, arglist, arg, args))
             arg_func, arg_mask = self._cmdtype[arg]
-            yield arg_mask % arg_func(rcvd_args.pop())        
+            yield arg_mask % arg_func(rcvd_args.pop())
 
     def _run_mplayer(self):
         cmd = [self._mp_path, '-slave', '-quiet', '-idle']
@@ -232,7 +232,7 @@ class ThreadedMPlayerControl(MPlayerControl):
         if self._buffer:
             _debug(self._buffer)
 
-if os.name.startswith('win'):
+if os.name.startswith('nt'):
     MPlayerControl = ThreadedMPlayerControl # select does not work on windows.
 
 if __name__ == '__main__':
